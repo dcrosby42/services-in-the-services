@@ -7,6 +7,7 @@ import (
 
 	"github.com/dcrosby42/status/ping"
 	"github.com/dcrosby42/status/ping/osx_strategy"
+	"github.com/dcrosby42/status/timer"
 )
 
 func main() {
@@ -18,7 +19,9 @@ func main() {
 	// DoFivePings(host)
 
 	pinger := ping.CreatePinger(osx_strategy.Ping, host, 1)
-	pings, stop := ping.StartPinging(pinger, 500*time.Millisecond)
+	// delay := 500*time.Millisecond
+	delay := 2 * time.Second
+	pings, stop := ping.StartPinging(pinger, timer.NewSimpleTimer(), delay)
 
 	go func() {
 		time.Sleep(5 * time.Second)
