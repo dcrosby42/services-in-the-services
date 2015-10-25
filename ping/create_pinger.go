@@ -9,7 +9,7 @@ func CreatePinger(pingFn PingExecFunc, host string, timeout int) Pinger {
 			Sent: time.Now(),
 		}
 		err := pingFn(host, timeout)
-		rec.Elapsed = rec.Sent.Sub(time.Now())
+		rec.Elapsed = time.Now().Sub(rec.Sent)
 		rec.Error = err
 		return rec
 	}
